@@ -1,0 +1,5 @@
+%% test random select
+Data=rand
+
+
+[SelectIndex]=RandSelect(DepositValue);

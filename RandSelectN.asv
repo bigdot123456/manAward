@@ -1,0 +1,23 @@
+%% m input value, random select NormalNum
+function [SelectIndex]=RandSelectN(DepositValue,NormalNum)
+% NormalSelectSeed=rand(NormalNum,1);
+totalN=length(DepositValue);
+if(totalN<=NormalNum)
+    SelectIndex=1:totalN;
+    return
+end
+
+SelectItem.Value=DepositValue;
+SelectItem.Index=1:totalN;
+SelectIndexGroup=[];
+
+CandItem.Value=SelectItem.Value;
+CandItem.Index=SelectItem.Index;
+for i=1:NormalNum
+    SelectIndex=RandSelect(CandItem.Value);
+    TrueIndex=CandItem.Index(SelectIndex);
+    SelectIndexGroup=[SelectIndexGroup,TrueIndex];
+    CandItem.Value=SelectItem.Value(SelectIndexGroup>0);
+    CandItem.Index=SelectItem.Index;
+    
+end
