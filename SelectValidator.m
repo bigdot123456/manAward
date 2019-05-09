@@ -1,6 +1,6 @@
 %% Select Validator with input is VCand and output is default 19 Validator & 5 backup also sorted with new candidator with index and name
 function [VIndex,Validator,SuperV,NormalV,BackupV]=SelectValidator(VCand,SelectVNum,LotteryPowerIndex)
-%% usage: 	[VIndex,Validator]=SelectValidator(VCand,SelectVNum,PowerIndex)
+%% usage: 	 [VIndex,Validator,SuperV,NormalV,BackupV]=SelectValidator(VCand,SelectVNum,LotteryPowerIndex)
 % default parameter is: SelectVNum=19  PowerIndex=1.3
 %   Miner Data structrue is as following:
 %  fieldnames(VCand)
@@ -21,7 +21,7 @@ function [VIndex,Validator,SuperV,NormalV,BackupV]=SelectValidator(VCand,SelectV
 	VCandNum=length(VCand.Name);
     FullIndex=1:VCandNum;
 %% step 1
-    StakedSum=sum(VCand.Stake);
+    StakedSum=sum(VCand.Staked);
     SuperVThreshHold=StakedSum/19;
  
 %% get super V
@@ -51,14 +51,15 @@ function [VIndex,Validator,SuperV,NormalV,BackupV]=SelectValidator(VCand,SelectV
     % NormalSelectSeed=rand(NormalNum,1);
     %[SelectIndex]=RandSelectN(DepositValue,NormalNum);
     SelectIndex=RandSelectN(NormalVCand.DepositValue,NormalVNum);
-    
-    NormalVIndex=SelectIndex(1:end-BackupNum);
+ 
+ %% set Normal V & Backup V
+    NormalVIndex=SelectIndex(1:end-BackupVNum);
     NormalV.Name=NormalVCand.Name(NormalVIndex);
     NormalV.Account=NormalVCand.Account(NormalVIndex);
     NormalV.Staked=NormalVCand.Staked(NormalVIndex);
     NormalV.Index=NormalVCand.Index(NormalVIndex);
     
-    BackupVIndex=SelectIndex(end-BackupNum+1:end);
+    BackupVIndex=SelectIndex(end-BackupVNum+1:end);
     BackupV.Name=NormalVCand.Name(BackupVIndex);
     BackupV.Account=NormalVCand.Account(BackupVIndex);
     BackupV.Staked=NormalVCand.Staked(BackupVIndex);

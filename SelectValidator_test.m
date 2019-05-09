@@ -2,25 +2,25 @@
 clear;
 clc;
 
-%% init miner setting
-NumMiner=500;
-base=10000;
-No=1:NumMiner;
+%% init Validator setting
+NumValidator=500;
+base=1e5;
+No=1:NumValidator;
 
-%miner = struct('Name',{},'Staked',{},'Account',{}) ;
+%Validator = struct('Name',{},'Staked',{},'Account',{}) ;
 % Error!
-% miner.Name=repmat('Miner',1,NumMiner)+PostName;
+% Validator.Name=repmat('Validator',1,NumValidator)+PostName;
 
-%% define miner value
-for i=1:NumMiner
-    miner.Name(i)="Miner"+num2str(i);
+%% define Validator value
+for i=1:NumValidator
+    Validator.Name(i)="Validator"+num2str(i);
 end
-x=miner.Name;
+x=Validator.Name;
 
-miner.Index=No;
-miner.Staked=base+randi(3000,1,NumMiner);
-miner.Account=zeros(1,NumMiner);
+Validator.Index=No;
+Validator.Staked=base+randi(3e7,1,NumValidator);
+Validator.Account=zeros(1,NumValidator);
 
-%% call Miner
-% fieldnames(miner)
-[MIndex,MMiner]=SelectMiner(miner);
+%% call Validator
+% fieldnames(Validator)
+ [VIndex,VIP,SuperV,NormalV,BackupV]=SelectValidator(Validator);
