@@ -17,6 +17,7 @@ for i=1:NumMiner
 end
 x=miner.Name;
 
+miner.Index=No;
 miner.Staked=base+randi(3000,1,NumMiner);
 miner.Account=zeros(1,NumMiner);
 

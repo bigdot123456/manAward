@@ -19,4 +19,5 @@ function [MIndex,Miner]=SelectMiner(MCand,SelectNum)
     Miner.Name=MCand.Name(MIndex);
     Miner.Account=MCand.Account(MIndex);
     Miner.Staked=MCand.Staked(MIndex);
+    Miner.Index=MCand.Index(MIndex);
     
