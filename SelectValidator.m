@@ -36,7 +36,7 @@ function [VIndex,Validator,SuperV,NormalV,BackupV]=SelectValidator(VCand,SelectV
 %% get Normal V
     NormalVNum=SelectVNum-SuperVNum+BackupVNum;
     
-    NormalVCandIndex=setdiff(FullIndex, SuperVIndex);
+    NormalVCandIndex=setdiff(FullIndex, SuperV.Index);
     
     NormalVCand.Name=VCand.Name(NormalVCandIndex);
     NormalVCand.Account=VCand.Account(NormalVCandIndex);

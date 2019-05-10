@@ -3,7 +3,17 @@ clear;
 close all;
 clc;
 %% Simulation parameter
-RoundNum=100;
+RoundNum=1000;
+
+%% init Validator setting
+NumValidator=200;
+VTotal=7e7;
+
+V1e7Num=2;
+V1e6Num=8;
+
+NumMiner=1000;
+MTotal=1.2e7;
 
 %% AWard parameter definition
 Award.SingleBlockFullAward=15;
@@ -22,21 +32,40 @@ Award.BlockInterest=SingleBlockFullAward*0.2;
 
 Award.LotteryPowerIndex=1.3;
 Award.InterestPowerIndex=1.3;
-
-%% init Validator setting
-NumValidator=500;
+%% Validator caculation
 VBase=1e5;
-%Validator.Staked=VBase+randi(3e7,1,NumValidator);
-Validator.Staked=VBase+randi(1e5,1,NumValidator);
 
-Validator.Staked(1:3)=VBase+1e7;
-Validator.Staked(4:10)=VBase+1e6;
-Validator.Staked(11:20)=VBase+5e5;
-Validator.Staked(21:30)=VBase+5e4;
+V1e5Num=NumValidator-V1e7Num-V1e6Num;
+
+Validator.Staked(1:V1e7Num)=1e7+randi(0.5e7,1,V1e7Num);
+Validator.Staked(V1e7Num+1:V1e7Num+V1e6Num)=1e6+randi(1e6,1,V1e6Num);
+
+VA=rand(1,V1e5Num);
+
+V1e5Sum=VTotal-sum(Validator.Staked(1:V1e6Num+V1e7Num));
+V1e5RandSum=V1e5Sum-V1e5Num*VBase;
+
+if(V1e5RandSum<=0) 
+    error("error with VIP setting:%d",V1e5RandSum);
+end
+Validator.Staked(V1e7Num+V1e6Num+1:NumValidator)=VBase+VA/sum(VA)*V1e5RandSum;
+VSUM=sum(Validator.Staked);
+
+fprintf("Validator sum is %d\n",VSUM);
+%Validator.Staked=VBase+randi(3e7,1,NumValidator);
 %% init miner setting
-NumMiner=1000;
-MBase=10000;
-miner.Staked=MBase+randi(3000,1,NumMiner);
+MA=rand(1,NumMiner);
+MBase=1e4;
+MRandSum=MTotal-NumMiner*MBase;
+
+if(MRandSum<=0) 
+    error('error with Miner setting:%d',MRandSum);
+end
+
+miner.Staked=MBase+MA/sum(MA)*MRandSum;
+MSUM=sum(miner.Staked);
+
+fprintf("miner sum is %d\n",MSUM);
 %% define Validator value
 for i=1:NumValidator
     Validator.Name(i)="Validator"+num2str(i);

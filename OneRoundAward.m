@@ -47,9 +47,9 @@ InterestPowerIndex=Award.InterestPowerIndex;
 %     Miner.Staked=MCand.Staked(MIndex);
 %     Miner.Index=MCand.Index(MIndex);
 for round=1:RoundBlockNum
-    MWinIndex=randi(32);
+    MWinIndex=randi(SelectMNum);
     MMiner.Account(MWinIndex)=MMiner.Account(MWinIndex)+MinerBlockAward;
-    MMiner.Account=MMiner.Account+MinerBlockLottery;
+    MMiner.Account=MMiner.Account+MinerBlockLottery/SelectMNum;
     
     VWinIndex=mod(round-1,SelectVNum)+1;
     VIP.Account(VWinIndex)=ValidatorBlockAward;
