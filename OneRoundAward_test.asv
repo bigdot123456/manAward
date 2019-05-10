@@ -1,8 +1,9 @@
 %% clear environment variable
 clear;
+close all;
 clc;
 %% Simulation parameter
-RoundNum=10;
+RoundNum=100;
 
 %% AWard parameter definition
 Award.SingleBlockFullAward=15;
@@ -25,12 +26,13 @@ Award.InterestPowerIndex=1.3;
 %% init Validator setting
 NumValidator=500;
 VBase=1e5;
-Validator.Staked=VBase+randi(3e7,1,NumValidator);
+%Validator.Staked=VBase+randi(3e7,1,NumValidator);
+Validator.Staked(1:3)=VBase+1e7;
+Validator.Staked(=VBase+randi(3e7,1,NumValidator);
 %% init miner setting
 NumMiner=1000;
 MBase=10000;
 miner.Staked=MBase+randi(3000,1,NumMiner);
-
 %% define Validator value
 for i=1:NumValidator
     Validator.Name(i)="Validator"+num2str(i);
@@ -62,10 +64,14 @@ end
 BlockInterval=10;
 BlockNumPerYear=365*24*60*60/BlockInterval;
 
-TimeRate=BlockNumPerYear/RoundNum*0.99;
+TimeRate=BlockNumPerYear/(RoundNum*297)*0.99;
 
 VYieldRate=(VCand(RoundNum+1).Account)./(VCand(1).Staked)*100*TimeRate;
 MYieldRate=(MCand(RoundNum+1).Account)./(MCand(1).Staked)*100*TimeRate;
 
-plot(VYieldRate);grid 
+plot(VYieldRate);grid on;
+title('Validator Yield Rate');
 figure;
+plot(MYieldRate);grid on;
+title('Miner Yield Rate');
+

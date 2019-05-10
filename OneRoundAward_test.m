@@ -3,7 +3,7 @@ clear;
 close all;
 clc;
 %% Simulation parameter
-RoundNum=10;
+RoundNum=100;
 
 %% AWard parameter definition
 Award.SingleBlockFullAward=15;
@@ -26,12 +26,17 @@ Award.InterestPowerIndex=1.3;
 %% init Validator setting
 NumValidator=500;
 VBase=1e5;
-Validator.Staked=VBase+randi(3e7,1,NumValidator);
+%Validator.Staked=VBase+randi(3e7,1,NumValidator);
+Validator.Staked=VBase+randi(1e5,1,NumValidator);
+
+Validator.Staked(1:3)=VBase+1e7;
+Validator.Staked(4:10)=VBase+1e6;
+Validator.Staked(11:20)=VBase+5e5;
+Validator.Staked(21:30)=VBase+5e4;
 %% init miner setting
 NumMiner=1000;
 MBase=10000;
 miner.Staked=MBase+randi(3000,1,NumMiner);
-
 %% define Validator value
 for i=1:NumValidator
     Validator.Name(i)="Validator"+num2str(i);
