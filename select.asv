@@ -1,7 +1,0 @@
-%% m input value, random select NormalNum
-function SelectIndex=RandSelectN(DepositValue,NormalNum)
-% NormalSelectSeed=rand(NormalNum,1);
-totalN=length(
-NormalSelectSeed=rand(NormalNum,1);
-
-end
