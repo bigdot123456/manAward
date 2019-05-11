@@ -46,12 +46,12 @@ V1e5Sum=VTotal-sum(Validator.Staked(1:V1e6Num+V1e7Num));
 V1e5RandSum=V1e5Sum-V1e5Num*VBase;
 
 if(V1e5RandSum<=0) 
-    error("error with VIP setting:%d",V1e5RandSum);
+    error('error with VIP setting:%d',V1e5RandSum);
 end
 Validator.Staked(V1e7Num+V1e6Num+1:NumValidator)=VBase+VA/sum(VA)*V1e5RandSum;
 VSUM=sum(Validator.Staked);
 
-fprintf("Validator sum is %d\n",VSUM);
+fprintf('Validator sum is %d\n',VSUM);
 %Validator.Staked=VBase+randi(3e7,1,NumValidator);
 %% init miner setting
 MA=rand(1,NumMiner);
@@ -65,10 +65,11 @@ end
 miner.Staked=MBase+MA/sum(MA)*MRandSum;
 MSUM=sum(miner.Staked);
 
-fprintf("miner sum is %d\n",MSUM);
+fprintf('miner sum is %d\n',MSUM);
 %% define Validator value
 for i=1:NumValidator
-    Validator.Name(i)="Validator"+num2str(i);
+    %Validator.Name(i)=['Validator',num2str(i)];
+    Validator.Name{i}=['Validator',num2str(i)];
 end
 
 VNum=1:NumValidator;
@@ -76,7 +77,7 @@ Validator.Index=VNum;
 Validator.Account=zeros(1,NumValidator);
 %% define miner value
 for i=1:NumMiner
-    miner.Name(i)="Miner"+num2str(i);
+    miner.Name{i}=['Miner',num2str(i)];
 end
 
 MNum=1:NumMiner;
