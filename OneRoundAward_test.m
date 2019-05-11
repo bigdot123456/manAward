@@ -1,3 +1,4 @@
+%% RUN with true miner & validator simulation, which will set VIP NUM and round Num
 %% clear environment variable
 clear;
 close all;
@@ -103,9 +104,17 @@ TimeRate=BlockNumPerYear/(RoundNum*297)*0.99;
 VYieldRate=(VCand(RoundNum+1).Account)./(VCand(1).Staked)*100*TimeRate;
 MYieldRate=(MCand(RoundNum+1).Account)./(MCand(1).Staked)*100*TimeRate;
 
-plot(VYieldRate);grid on;
-title('Validator Yield Rate');
+AwardIssued=sum(MCand(RoundNum+1).Account)+sum(VCand(RoundNum+1).Account);
+AwardTheroy=15*RoundNum*297*(0.9*0.8+0.2);
+fprintf('Award is issued %d,Award with theroy %d',AwardIssued,AwardTheroy);
+%% Plot all information
+VTitle=sprintf('Validator Yield Rate:10M num:%d,1M num:%d,mini V num:%d,total:%f',V1e7Num,V1e6Num,V1e5Num,VSUM);
+MTitle=sprintf('miner Num:%d,VIP sum:%f,Miner sum:%f',NumMiner,VSUM,MSUM);
+plot(VYieldRate);
+title(VTitle);
+grid on;
 figure;
-plot(MYieldRate);grid on;
-title('Miner Yield Rate');
+plot(MYieldRate);
+title(MTitle);
+grid on;
 

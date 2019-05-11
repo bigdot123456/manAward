@@ -52,7 +52,7 @@ for round=1:RoundBlockNum
     MMiner.Account=MMiner.Account+MinerBlockLottery/SelectMNum;
     
     VWinIndex=mod(round-1,SelectVNum)+1;
-    VIP.Account(VWinIndex)=ValidatorBlockAward;
+    VIP.Account(VWinIndex)=VIP.Account(VWinIndex)+ValidatorBlockAward;
     for i=1:(SelectVNum+BackupVNum)
        VIP.Account(i)=VIP.Account(i)+VIP.LotteryRate(i).*ValidatorBlockLottery;
     end
